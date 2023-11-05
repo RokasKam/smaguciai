@@ -69,6 +69,17 @@ function RegisterPage() {
                 id="password"
                 autoComplete="new-password"
               />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Repeat Password"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+              />
               <Button
                 type="submit"
                 fullWidth
