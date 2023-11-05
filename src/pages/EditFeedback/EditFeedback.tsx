@@ -1,9 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { TextField, Button, Rating, Box } from '@mui/material';
 
 function EditFeedback() {
-  const { id } = useParams(); // Using id to clear the unused variable error
+  const { itemId, id } = useParams(); // Using id to clear the unused variable error
 
   return (
     <Box
@@ -46,7 +46,14 @@ function EditFeedback() {
         precision={0.5}
         size="large"
       />
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        component={Link} // The Button will render as a Link component
+        to={`/Toys/${itemId}/Feedback`}
+      >
         Save Changes
       </Button>
     </Box>

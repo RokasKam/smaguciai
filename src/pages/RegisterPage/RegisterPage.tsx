@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuBar from '../../Components/MenuBar/MenuBar';
 import { Container, Typography, TextField, Button, Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function RegisterPage() {
   return (
@@ -27,6 +28,17 @@ function RegisterPage() {
           >
             <Typography variant="h5">Register</Typography>
             <form noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="nickname"
+                label="Nickname"
+                name="nickname"
+                autoComplete="nickname"
+                autoFocus
+              />
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -69,11 +81,35 @@ function RegisterPage() {
                 id="password"
                 autoComplete="new-password"
               />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Repeat Password"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="number"
+                label="Phone Number"
+                name="number"
+                autoComplete="number"
+                autoFocus
+              />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
+                component={Link}
+                to={`/`}
               >
                 Register
               </Button>

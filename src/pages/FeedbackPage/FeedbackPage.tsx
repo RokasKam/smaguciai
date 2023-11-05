@@ -124,7 +124,7 @@ function FeedbackPage() {
                 size="small"
                 variant="contained"
                 component={Link} // The Button will render as a Link component
-                to={`/Toys/${parsedId}/Feedback/EditFeedback/${feedback.id}`} // Adjust the path here
+                to={`/Toys/${parsedId}/Feedback/EditFeedback/${id}/${feedback.id}`} // Adjust the path here
               >
                 Edit
               </Button>

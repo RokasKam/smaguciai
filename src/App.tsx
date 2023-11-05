@@ -10,6 +10,14 @@ import CartPage from './pages/CarPage/CartPage';
 import AddItemPage from './pages/AddItemPage/AddItemPage';
 import EditItemPage from './pages/EditItemPage/EditItem';
 import RemoveItemPage from './pages/RemoveItemPage/RemoveItem';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
+import ProfileDeletePage from './pages/ProfileDeletePage/ProfileDeletePage';
+import PasswordChangePage from './pages/PasswordChangePage/PasswordChangePage';
+import FeedbackPage from './pages/FeedbackPage/FeedbackPage';
+import EditFeedback from './pages/EditFeedback/EditFeedback';
+import FormOrderPage from './pages/FormOrderPage/FormOrderPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 import React from 'react';
 
 function App() {
@@ -27,6 +35,20 @@ function App() {
             <Route path="/AddItem" element={<AddItemPage />} />
             <Route path="Edit/:id" element={<EditItemPage />} />
             <Route path="Remove/:id" element={<RemoveItemPage />} />
+            <Route path="/Profile" element={<ProfilePage />} />
+            <Route path="/Profile/Edit" element={<ProfileEditPage />} />
+            <Route path="/Profile/Delete" element={<ProfileDeletePage />} />
+            <Route
+              path="/Profile/PasswordChange"
+              element={<PasswordChangePage />}
+            />
+            <Route path="/Toys/:id/Feedback" element={<FeedbackPage />} />
+            <Route
+              path="/Toys/:id/Feedback/EditFeedback/:itemId/:id"
+              element={<EditFeedback />}
+            />
+            <Route path="/Cart/Order" element={<FormOrderPage />} />
+            <Route path="/Cart/Order/Pay" element={<PaymentPage />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

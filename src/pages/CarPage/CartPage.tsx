@@ -14,6 +14,7 @@ import {
 import { RemoveCircle } from '@mui/icons-material';
 import { Toy } from '../../Interfaces/Toy';
 import MenuBar from '../../Components/MenuBar/MenuBar';
+import { Link } from 'react-router-dom';
 
 function CartPage() {
   const { cart, removeFromCart, addToCart } = useCart();
@@ -80,6 +81,15 @@ function CartPage() {
           </ListItem>
         ))}
       </List>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        component={Link} // The Button will render as a Link component
+        to={`/Cart/Order`}
+      >
+        Place Order
+      </Button>
     </div>
   );
 }

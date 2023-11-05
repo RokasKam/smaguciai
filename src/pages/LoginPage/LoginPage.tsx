@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuBar from '../../Components/MenuBar/MenuBar';
 import { Container, Typography, TextField, Button, Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function LoginPage() {
   return (
@@ -54,6 +55,8 @@ function LoginPage() {
                 fullWidth
                 variant="contained"
                 color="primary"
+                component={Link}
+                to={`/`}
               >
                 Sign In
               </Button>
