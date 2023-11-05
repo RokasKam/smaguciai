@@ -8,12 +8,16 @@ export const toysData: Record<number, Toy> = {
     imageUrl: 'toy1.jpg',
     feedback: [
       {
+        id: 1,
         text: 'Great toy!',
+        rating: 5,
         author: 'John Doe',
         date: '2023-10-31',
       },
       {
+        id: 2,
         text: 'Awesome product!',
+        rating: 4,
         author: 'Jane Smith',
         date: '2023-10-30',
       },
@@ -27,7 +31,9 @@ export const toysData: Record<number, Toy> = {
     imageUrl: 'toy2.jpg',
     feedback: [
       {
+        id: 3,
         text: 'Excellent choice!',
+        rating: 5,
         author: 'Alice Johnson',
         date: '2023-10-29',
       },

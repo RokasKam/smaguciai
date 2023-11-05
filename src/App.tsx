@@ -7,6 +7,8 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ItemPage from './pages/ItemPage.tsx/ItemPage';
 import { CartProvider } from './Context/CartContext';
 import CartPage from './pages/CarPage/CartPage';
+import FeedbackPage from './pages/FeedbackPage/FeedbackPage';
+import EditFeedback from './pages/EditFeedback/EditFeedback';
 import React from 'react';
 
 function App() {
@@ -21,6 +23,11 @@ function App() {
             <Route path="/Register" element={<RegisterPage />} />
             <Route path="Toys/:id" element={<ItemPage />} />
             <Route path="/Cart" element={<CartPage />} />
+            <Route path="Toys/:id/Feedback" element={<FeedbackPage />} />
+            <Route
+              path="/Toys/:id/Feedback/EditFeedback/:id"
+              element={<EditFeedback />}
+            />
           </Routes>
         </BrowserRouter>
       </CartProvider>

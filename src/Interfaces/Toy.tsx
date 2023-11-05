@@ -8,7 +8,9 @@ export type Toy = {
 };
 
 export type Feedback = {
+  id: number
   text: string;
+  rating: number
   author: string;
   date: string;
 };
