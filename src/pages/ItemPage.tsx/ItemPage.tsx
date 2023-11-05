@@ -13,6 +13,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { toysData } from '../../toysData';
 import { useCart } from '../../Context/CartContext';
+import { Link } from 'react-router-dom'; // <-- Import Link
 
 function ToyDetails() {
   const { id } = useParams<{ id: string }>();
@@ -105,16 +106,15 @@ function ToyDetails() {
           {/* Feedback Section */}
           <div>
             <Typography variant="h5">Feedback</Typography>
-            {toy.feedback.map((feedback, index) => (
-              <div key={index}>
-                <Typography variant="body2" color="textSecondary">
-                  {feedback.text}
-                </Typography>
-                <Typography variant="caption" color="primary">
-                  By {feedback.author} on {feedback.date}
-                </Typography>
-              </div>
-            ))}
+            <Button
+              component={Link} // The Button will render as a Link component
+              to={`/Toys/${parsedId}/Feedback`} // Adjust the path here
+              variant="contained"
+              color="secondary"
+              fullWidth
+            >
+              Click to see feedback
+            </Button>
           </div>
         </CardContent>
       </Card>
