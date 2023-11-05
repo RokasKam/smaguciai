@@ -39,6 +39,7 @@ function ProfileEditPage() {
                 name="nickname"
                 autoComplete="nickname"
                 autoFocus
+                defaultValue={profile.nickname}
               />
               <TextField
                 variant="outlined"
@@ -49,6 +50,7 @@ function ProfileEditPage() {
                 name="name"
                 autoComplete="name"
                 autoFocus
+                defaultValue={profile.name}
               />
               <TextField
                 variant="outlined"
@@ -59,6 +61,7 @@ function ProfileEditPage() {
                 name="surname"
                 autoComplete="surname"
                 autoFocus
+                defaultValue={profile.surname}
               />
               <TextField
                 variant="outlined"
@@ -69,6 +72,7 @@ function ProfileEditPage() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                defaultValue={profile.email}
               />
               <TextField
                 variant="outlined"
@@ -79,6 +83,7 @@ function ProfileEditPage() {
                 name="number"
                 autoComplete="number"
                 autoFocus
+                defaultValue={profile.number}
               />
               <Button
                 component={Link}
