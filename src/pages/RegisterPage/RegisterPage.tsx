@@ -27,17 +27,6 @@ function RegisterPage() {
           >
             <Typography variant="h5">Register</Typography>
             <form noValidate>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="nickname"
-                label="Nickname"
-                name="nickname"
-                autoComplete="nickname"
-                autoFocus
-              />
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -79,28 +68,6 @@ function RegisterPage() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Repeat Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="number"
-                label="Phone Number"
-                name="number"
-                autoComplete="number"
-                autoFocus
               />
               <Button
                 type="submit"

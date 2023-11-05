@@ -16,6 +16,11 @@ function ListOfItems() {
   return (
     <div>
       <MenuBar />
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+        <Button component={Link} to="/AddItem" variant="contained" color="primary">
+          Add Item
+        </Button>
+        </div>
       <Container>
         <Grid container spacing={2}>
           {Object.values(toysData).map((toy) => (

@@ -43,12 +43,6 @@ function MenuBar() {
             to="/Cart"
             style={{ color: 'inherit' }}
           />
-          <Tab
-            label="Profile"
-            component={Link}
-            to="/Profile"
-            style={{ color: 'inherit' }}
-          />
         </Tabs>
       </Toolbar>
     </AppBar>

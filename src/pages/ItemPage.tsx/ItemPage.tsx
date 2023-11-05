@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Card,
@@ -55,6 +56,22 @@ function ToyDetails() {
           <Typography variant="h6" color="primary">
             {toy.price}
           </Typography>
+          <div>
+              {/* Edit Item Button */}
+              <Link to={`/edit/${toy.id}`}>
+                <Button variant="outlined" color="primary">
+                  Edit Item
+                </Button>
+              </Link>
+            </div>
+            <div>
+            {/* Remove Item Button */}
+          <Link to={`/Remove/${toy.id}`}>
+            <Button variant="outlined" color="secondary">
+              Remove Item
+            </Button>
+          </Link>
+          </div>
 
           <Grid container spacing={2} alignItems="center">
             <Grid item>
