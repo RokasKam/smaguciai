@@ -4,7 +4,7 @@ export const toysData: Record<number, Toy> = {
     id: 1,
     name: 'Toy 1',
     description: 'Description for Toy 1',
-    price: '$10.00',
+    price: '10.00',
     imageUrl: 'toy1.jpg',
     feedback: [
       {
@@ -23,7 +23,7 @@ export const toysData: Record<number, Toy> = {
     id: 2,
     name: 'Toy 2',
     description: 'Description for Toy 2',
-    price: '$15.00',
+    price: '15.00',
     imageUrl: 'toy2.jpg',
     feedback: [
       {

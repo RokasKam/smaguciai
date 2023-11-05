@@ -7,10 +7,9 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ItemPage from './pages/ItemPage.tsx/ItemPage';
 import { CartProvider } from './Context/CartContext';
 import CartPage from './pages/CarPage/CartPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
-import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
-import ProfileDeletePage from './pages/ProfileDeletePage/ProfileDeletePage';
-import PasswordChangePage from './pages/PasswordChangePage/PasswordChangePage';
+import AddItemPage from './pages/AddItemPage/AddItemPage';
+import EditItemPage from './pages/EditItemPage/EditItem';
+import RemoveItemPage from './pages/RemoveItemPage/RemoveItem';
 import React from 'react';
 
 function App() {
@@ -25,13 +24,9 @@ function App() {
             <Route path="/Register" element={<RegisterPage />} />
             <Route path="Toys/:id" element={<ItemPage />} />
             <Route path="/Cart" element={<CartPage />} />
-            <Route path="/Profile" element={<ProfilePage />} />
-            <Route path="/Profile/Edit" element={<ProfileEditPage />} />
-            <Route path="/Profile/Delete" element={<ProfileDeletePage />} />
-            <Route
-              path="/Profile/PasswordChange"
-              element={<PasswordChangePage />}
-            />
+            <Route path="/AddItem" element={<AddItemPage />} />
+            <Route path="Edit/:id" element={<EditItemPage />} />
+            <Route path="Remove/:id" element={<RemoveItemPage />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
