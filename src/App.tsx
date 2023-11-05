@@ -7,6 +7,10 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ItemPage from './pages/ItemPage.tsx/ItemPage';
 import { CartProvider } from './Context/CartContext';
 import CartPage from './pages/CarPage/CartPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
+import ProfileDeletePage from './pages/ProfileDeletePage/ProfileDeletePage';
+import PasswordChangePage from './pages/PasswordChangePage/PasswordChangePage';
 import React from 'react';
 
 function App() {
@@ -21,6 +25,13 @@ function App() {
             <Route path="/Register" element={<RegisterPage />} />
             <Route path="Toys/:id" element={<ItemPage />} />
             <Route path="/Cart" element={<CartPage />} />
+            <Route path="/Profile" element={<ProfilePage />} />
+            <Route path="/Profile/Edit" element={<ProfileEditPage />} />
+            <Route path="/Profile/Delete" element={<ProfileDeletePage />} />
+            <Route
+              path="/Profile/PasswordChange"
+              element={<PasswordChangePage />}
+            />
           </Routes>
         </BrowserRouter>
       </CartProvider>
