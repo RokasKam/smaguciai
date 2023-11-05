@@ -7,8 +7,9 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ItemPage from './pages/ItemPage.tsx/ItemPage';
 import { CartProvider } from './Context/CartContext';
 import CartPage from './pages/CarPage/CartPage';
-import FeedbackPage from './pages/FeedbackPage/FeedbackPage';
-import EditFeedback from './pages/EditFeedback/EditFeedback';
+import AddItemPage from './pages/AddItemPage/AddItemPage';
+import EditItemPage from './pages/EditItemPage/EditItem';
+import RemoveItemPage from './pages/RemoveItemPage/RemoveItem';
 import React from 'react';
 
 function App() {
@@ -23,11 +24,9 @@ function App() {
             <Route path="/Register" element={<RegisterPage />} />
             <Route path="Toys/:id" element={<ItemPage />} />
             <Route path="/Cart" element={<CartPage />} />
-            <Route path="Toys/:id/Feedback" element={<FeedbackPage />} />
-            <Route
-              path="/Toys/:id/Feedback/EditFeedback/:id"
-              element={<EditFeedback />}
-            />
+            <Route path="/AddItem" element={<AddItemPage />} />
+            <Route path="Edit/:id" element={<EditItemPage />} />
+            <Route path="Remove/:id" element={<RemoveItemPage />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
