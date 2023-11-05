@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    Container,
-    Card,
-    CardContent,
-    Typography,
-    Button,
-    TextField,
-  } from '@mui/material';
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  TextField,
+} from '@mui/material';
 import MenuBar from '../../Components/MenuBar/MenuBar';
 import { Link } from 'react-router-dom';
 import { profileData } from '../../profileData';
@@ -17,18 +17,20 @@ function ProfileEditPage() {
     <div>
       <MenuBar />
       <Container>
-      <Card>
-        <CardContent>
-          <Typography variant="h4">{profile.nickname}</Typography>
-          <Typography variant="h6">{profile.name}</Typography>
-          <Typography variant="h6">{profile.surname}</Typography>
-          <Typography variant="h6">{profile.email}</Typography>
-          <Typography variant="h6">{profile.number}</Typography>
-          <Typography variant="h6">{profile.birthdate.toLocaleDateString()}</Typography>
+        <Card>
+          <CardContent>
+            <Typography variant="h4">{profile.nickname}</Typography>
+            <Typography variant="h6">{profile.name}</Typography>
+            <Typography variant="h6">{profile.surname}</Typography>
+            <Typography variant="h6">{profile.email}</Typography>
+            <Typography variant="h6">{profile.number}</Typography>
+            <Typography variant="h6">
+              {profile.birthdate.toLocaleDateString()}
+            </Typography>
 
-          <Typography variant="h5">Edit</Typography>
+            <Typography variant="h5">Edit</Typography>
             <form noValidate>
-            <TextField
+              <TextField
                 variant="outlined"
                 margin="normal"
                 fullWidth
@@ -89,9 +91,9 @@ function ProfileEditPage() {
                 Edit
               </Button>
             </form>
-        </CardContent>
-      </Card>
-    </Container>
+          </CardContent>
+        </Card>
+      </Container>
     </div>
   );
 }

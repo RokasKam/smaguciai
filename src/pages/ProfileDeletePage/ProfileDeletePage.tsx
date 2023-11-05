@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-    Container,
-    Card,
-    CardContent,
-    Typography,
-    Button,
-    TextField,
-  } from '@mui/material';
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+} from '@mui/material';
 import MenuBar from '../../Components/MenuBar/MenuBar';
 import { Link } from 'react-router-dom';
 import { profileData } from '../../profileData';
@@ -17,29 +16,33 @@ function ProfileDeletePage() {
     <div>
       <MenuBar />
       <Container>
-      <Card>
-        <CardContent>
-          <Typography variant="h4">{profile.nickname}</Typography>
-          <Typography variant="h6">{profile.name}</Typography>
-          <Typography variant="h6">{profile.surname}</Typography>
-          <Typography variant="h6">{profile.email}</Typography>
-          <Typography variant="h6">{profile.number}</Typography>
-          <Typography variant="h6">{profile.birthdate.toLocaleDateString()}</Typography>
+        <Card>
+          <CardContent>
+            <Typography variant="h4">{profile.nickname}</Typography>
+            <Typography variant="h6">{profile.name}</Typography>
+            <Typography variant="h6">{profile.surname}</Typography>
+            <Typography variant="h6">{profile.email}</Typography>
+            <Typography variant="h6">{profile.number}</Typography>
+            <Typography variant="h6">
+              {profile.birthdate.toLocaleDateString()}
+            </Typography>
 
-          <Typography variant="h5">Confirm that you want to delete this account</Typography>
-          <Button
-                component={Link}
-                to={`/`}
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
-                DELETE
-              </Button>
-        </CardContent>
-      </Card>
-    </Container>
+            <Typography variant="h5">
+              Confirm that you want to delete this account
+            </Typography>
+            <Button
+              component={Link}
+              to={`/`}
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              DELETE
+            </Button>
+          </CardContent>
+        </Card>
+      </Container>
     </div>
   );
 }

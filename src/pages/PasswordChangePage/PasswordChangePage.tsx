@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    Container,
-    Card,
-    CardContent,
-    Typography,
-    Button,
-    TextField,
-  } from '@mui/material';
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  TextField,
+} from '@mui/material';
 import MenuBar from '../../Components/MenuBar/MenuBar';
 import { Link } from 'react-router-dom';
 
@@ -15,11 +15,11 @@ function PasswordChangePage() {
     <div>
       <MenuBar />
       <Container>
-      <Card>
-        <CardContent>
-          <Typography variant="h3">Change Password</Typography>
+        <Card>
+          <CardContent>
+            <Typography variant="h3">Change Password</Typography>
             <form noValidate>
-            <TextField
+              <TextField
                 variant="outlined"
                 margin="normal"
                 required
@@ -63,9 +63,9 @@ function PasswordChangePage() {
                 Submit
               </Button>
             </form>
-        </CardContent>
-      </Card>
-    </Container>
+          </CardContent>
+        </Card>
+      </Container>
     </div>
   );
 }

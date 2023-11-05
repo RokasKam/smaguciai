@@ -28,7 +28,10 @@ function App() {
             <Route path="/Profile" element={<ProfilePage />} />
             <Route path="/Profile/Edit" element={<ProfileEditPage />} />
             <Route path="/Profile/Delete" element={<ProfileDeletePage />} />
-            <Route path="/Profile/PasswordChange" element={<PasswordChangePage />} />
+            <Route
+              path="/Profile/PasswordChange"
+              element={<PasswordChangePage />}
+            />
           </Routes>
         </BrowserRouter>
       </CartProvider>
