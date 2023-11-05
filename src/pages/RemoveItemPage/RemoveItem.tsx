@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   Container,
   Card,
@@ -8,7 +8,6 @@ import {
   Button,
   TextField,
   CardMedia,
-  Grid,
 } from '@mui/material';
 import { toysData } from '../../toysData';
 
@@ -37,10 +36,6 @@ function RemoveItemPage() {
     if (editedToy.name && editedToy.description && editedToy.price > 0) {
       // Handle saving the updated data here.
     }
-  };
-
-  const handleAddImage = () => {
-    // Implement the logic for adding an image here.
   };
 
   if (!toy) {
@@ -72,7 +67,9 @@ function RemoveItemPage() {
             <TextField
               label="Item Name"
               value={editedToy.name}
-              onChange={(e) => setEditedToy({ ...editedToy, name: e.target.value })}
+              onChange={(e) =>
+                setEditedToy({ ...editedToy, name: e.target.value })
+              }
               style={textFieldStyle}
               disabled // Disable the input field
             />
@@ -98,21 +95,25 @@ function RemoveItemPage() {
               type="number"
               value={editedToy.price}
               onChange={(e) =>
-                setEditedToy({ ...editedToy, price: parseFloat(e.target.value) || 0 })
+                setEditedToy({
+                  ...editedToy,
+                  price: parseFloat(e.target.value) || 0,
+                })
               }
               style={textFieldStyle}
               disabled // Disable the input field
             />
           </div>
-
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleAddItem}
-          >
-            Remove Item
-          </Button>
+          <Link to={`/List`}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleAddItem}
+            >
+              Remove Item
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </Container>
