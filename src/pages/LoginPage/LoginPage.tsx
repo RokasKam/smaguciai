@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MenuBar from '../../Components/MenuBar/MenuBar';
 import { Container, Typography, TextField, Button, Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../Context/UserContext';
+import { apiService } from '../../serivces/business/apiService';
+import { createApiHeader } from '../../serivces/business/createApiHeader';
 
 function LoginPage() {
+  const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
+  const { setUser } = useUserContext();
+  const navigate = useNavigate();
+
+  const login = async () => {
+    try {
+      const loginResponse = await apiService.login(loginInfo);
+      try {
+        const userResponse = await apiService.fetchUserInfo(
+          createApiHeader(loginResponse.data.accessToken),
+        );
+        setUser({
+          Token: loginResponse.data.accessToken,
+          Id: userResponse.data.id,
+          Nickname: userResponse.data.nickname,
+          Name: userResponse.data.name,
+          Surname: userResponse.data.surname,
+          Email: userResponse.data.email,
+          PhoneNumber: userResponse.data.phonenumber,
+          BirthDate: userResponse.data.birthdate,
+          ReviewCount: userResponse.data.reviewcount,
+          Role: userResponse.data.role,
+          Gender: userResponse.data.gender,
+        });
+
+        // Redirect to the desired route upon successful login
+        navigate('/');
+      } catch (error) {
+        console.log('Error fetching user info', error);
+      }
+    } catch (error) {
+      console.log('Login failed', error);
+    }
+  };
+
+  const handleFormSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    login();
+  };
+
   return (
     <div>
       <MenuBar />
@@ -27,7 +70,7 @@ function LoginPage() {
             }}
           >
             <Typography variant="h5">Login</Typography>
-            <form noValidate>
+            <form noValidate onSubmit={handleFormSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -38,6 +81,10 @@ function LoginPage() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={loginInfo.email}
+                onChange={(e) =>
+                  setLoginInfo({ ...loginInfo, email: e.target.value })
+                }
               />
               <TextField
                 variant="outlined"
@@ -49,14 +96,16 @@ function LoginPage() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={loginInfo.password}
+                onChange={(e) =>
+                  setLoginInfo({ ...loginInfo, password: e.target.value })
+                }
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                component={Link}
-                to={`/`}
               >
                 Sign In
               </Button>

@@ -19,39 +19,42 @@ import EditFeedback from './pages/EditFeedback/EditFeedback';
 import FormOrderPage from './pages/FormOrderPage/FormOrderPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import React from 'react';
+import { UserContext } from './Context/UserContext';
 
 function App() {
   return (
     <div className="App">
-      <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<MainPage />} />
-            <Route path="/List" element={<ListOfItems />} />
-            <Route path="/Login" element={<LoginPage />} />
-            <Route path="/Register" element={<RegisterPage />} />
-            <Route path="Toys/:id" element={<ItemPage />} />
-            <Route path="/Cart" element={<CartPage />} />
-            <Route path="/AddItem" element={<AddItemPage />} />
-            <Route path="Edit/:id" element={<EditItemPage />} />
-            <Route path="Remove/:id" element={<RemoveItemPage />} />
-            <Route path="/Profile" element={<ProfilePage />} />
-            <Route path="/Profile/Edit" element={<ProfileEditPage />} />
-            <Route path="/Profile/Delete" element={<ProfileDeletePage />} />
-            <Route
-              path="/Profile/PasswordChange"
-              element={<PasswordChangePage />}
-            />
-            <Route path="/Toys/:id/Feedback" element={<FeedbackPage />} />
-            <Route
-              path="/Toys/:id/Feedback/EditFeedback/:itemId/:id"
-              element={<EditFeedback />}
-            />
-            <Route path="/Cart/Order" element={<FormOrderPage />} />
-            <Route path="/Cart/Order/Pay" element={<PaymentPage />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
+      <UserContext>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<MainPage />} />
+              <Route path="/List" element={<ListOfItems />} />
+              <Route path="/Login" element={<LoginPage />} />
+              <Route path="/Register" element={<RegisterPage />} />
+              <Route path="Toys/:id" element={<ItemPage />} />
+              <Route path="/Cart" element={<CartPage />} />
+              <Route path="/AddItem" element={<AddItemPage />} />
+              <Route path="Edit/:id" element={<EditItemPage />} />
+              <Route path="Remove/:id" element={<RemoveItemPage />} />
+              <Route path="/Profile" element={<ProfilePage />} />
+              <Route path="/Profile/Edit" element={<ProfileEditPage />} />
+              <Route path="/Profile/Delete" element={<ProfileDeletePage />} />
+              <Route
+                path="/Profile/PasswordChange"
+                element={<PasswordChangePage />}
+              />
+              <Route path="/Toys/:id/Feedback" element={<FeedbackPage />} />
+              <Route
+                path="/Toys/:id/Feedback/EditFeedback/:itemId/:id"
+                element={<EditFeedback />}
+              />
+              <Route path="/Cart/Order" element={<FormOrderPage />} />
+              <Route path="/Cart/Order/Pay" element={<PaymentPage />} />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
+      </UserContext>
     </div>
   );
 }
