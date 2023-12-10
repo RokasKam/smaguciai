@@ -43,6 +43,16 @@ function ToyDetails() {
   return (
     <div>
       <MenuBar />
+      <Button
+        component={Link}
+        to={`/List`}
+        variant="contained"
+        color="primary"
+        fullWidth
+        style={{ marginTop: 8 }}
+      >
+        Go back to list
+      </Button>
       <Container>
         <Card>
           <CardMedia

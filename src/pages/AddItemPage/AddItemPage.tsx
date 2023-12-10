@@ -73,7 +73,7 @@ function AddItemPage() {
           >
             Add Image
           </Button>
-          <Link to={`/Toys/1`}>
+          <Link to={`/List`}>
             <Button
               variant="contained"
               color="primary"

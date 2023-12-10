@@ -41,6 +41,16 @@ function FeedbackPage() {
 
   return (
     <Container maxWidth="sm">
+      <Button
+        component={Link}
+        to={`/Toys/${id}`}
+        variant="contained"
+        color="primary"
+        fullWidth
+        style={{ marginTop: 8 }}
+      >
+        Go back to item
+      </Button>
       <Typography variant="h4" gutterBottom>
         {toy.name} Feedback
       </Typography>
