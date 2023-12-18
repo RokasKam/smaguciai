@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { API_ENDPOINTS_USER } from '../../constants/apiEndpoints';
 
-const REACT_APP_API = 'https://e8eb-78-61-24-56.ngrok-free.app/api';
+const REACT_APP_API = 'https://localhost:7026/api';
 
 const login = (loginInfo: { email: string; password: string }) =>
   axios.post(`${REACT_APP_API}${API_ENDPOINTS_USER.LOGIN}`, loginInfo);
 
-const fetchUserInfo = (headers: Record<string, string>) =>
+const fetchUserInfo = (token: string) =>
   axios.get(`${REACT_APP_API}${API_ENDPOINTS_USER.GET_ME}`, {
-    headers: headers,
+    headers: { Authorization: `Bearer ${token}` },
   });
 
 export const apiService = {

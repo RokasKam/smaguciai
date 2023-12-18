@@ -46,11 +46,11 @@ function App() {
               />
               <Route path="/Toys/:id/Feedback" element={<FeedbackPage />} />
               <Route
-                path="/Toys/:id/Feedback/EditFeedback/:itemId/:id"
+                path="/Toys/:itemId/Feedback/EditFeedback/:itemId/:id"
                 element={<EditFeedback />}
               />
               <Route path="/Cart/Order" element={<FormOrderPage />} />
-              <Route path="/Cart/Order/Pay" element={<PaymentPage />} />
+              <Route path="/Cart/Order/Pay/:id" element={<PaymentPage />} />
             </Routes>
           </BrowserRouter>
         </CartProvider>

@@ -7,23 +7,31 @@ import {
   Button,
 } from '@mui/material';
 import MenuBar from '../../Components/MenuBar/MenuBar';
-import { Link } from 'react-router-dom';
-import { profileData } from '../../profileData';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../Context/UserContext';
 
 function ProfilePage() {
-  const profile = profileData[1];
+  const { user, setUser } = useUserContext();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Assuming setUser is a function that sets the user context data
+    setUser(undefined);
+
+    // Redirect to the home page
+    navigate('/');
+  };
   return (
     <div>
       <MenuBar />
       <Container>
         <Card>
           <CardContent>
-            <Typography variant="h4">{profile.nickname}</Typography>
-            <Typography variant="h6">{profile.email}</Typography>
+            <Typography variant="h4">{user?.Name}</Typography>
+            <Typography variant="h6">{user?.Email}</Typography>
 
             <Button
-              component={Link}
-              to={`/`}
+              onClick={handleLogout}
               variant="contained"
               color="primary"
               fullWidth

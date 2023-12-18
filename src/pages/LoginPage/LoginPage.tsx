@@ -1,22 +1,36 @@
 import React, { useState } from 'react';
 import MenuBar from '../../Components/MenuBar/MenuBar';
-import { Container, Typography, TextField, Button, Paper } from '@mui/material';
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Snackbar,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../Context/UserContext';
 import { apiService } from '../../serivces/business/apiService';
-import { createApiHeader } from '../../serivces/business/createApiHeader';
 
 function LoginPage() {
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const { setUser } = useUserContext();
   const navigate = useNavigate();
 
   const login = async () => {
     try {
+      if (!loginInfo.email || !loginInfo.password) {
+        setSnackbarMessage('Please fill in both email and password.');
+        setSnackbarOpen(true);
+        return;
+      }
+
       const loginResponse = await apiService.login(loginInfo);
       try {
         const userResponse = await apiService.fetchUserInfo(
-          createApiHeader(loginResponse.data.accessToken),
+          loginResponse.data.accessToken,
         );
         setUser({
           Token: loginResponse.data.accessToken,
@@ -25,9 +39,9 @@ function LoginPage() {
           Name: userResponse.data.name,
           Surname: userResponse.data.surname,
           Email: userResponse.data.email,
-          PhoneNumber: userResponse.data.phonenumber,
-          BirthDate: userResponse.data.birthdate,
-          ReviewCount: userResponse.data.reviewcount,
+          PhoneNumber: userResponse.data.phoneNumber,
+          BirthDate: userResponse.data.birthDate,
+          ReviewCount: userResponse.data.reviewCount,
           Role: userResponse.data.role,
           Gender: userResponse.data.gender,
         });
@@ -38,6 +52,8 @@ function LoginPage() {
         console.log('Error fetching user info', error);
       }
     } catch (error) {
+      setSnackbarMessage('Login failed. Please check your credentials.');
+      setSnackbarOpen(true);
       console.log('Login failed', error);
     }
   };
@@ -45,6 +61,10 @@ function LoginPage() {
   const handleFormSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     login();
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -113,6 +133,14 @@ function LoginPage() {
           </Paper>
         </div>
       </Container>
+
+      {/* Snackbar for showing validation error or login failure */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+      />
     </div>
   );
 }

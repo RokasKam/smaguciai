@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Container,
   Card,
@@ -7,61 +7,73 @@ import {
   Typography,
   Button,
   TextField,
-  CardMedia,
 } from '@mui/material';
-import { toysData } from '../../toysData';
+import axios from 'axios';
 
-function RemoveItemPage() {
+function RemoveEditItemPage() {
   const { id } = useParams<{ id: string }>();
-  const parsedId = id ?? '-1';
-  const toy = toysData[parseInt(parsedId, 10)];
-
   const [editedToy, setEditedToy] = useState({
+    id: '',
     name: '',
-    description: '',
     price: 0,
+    creationDate: '',
+    color: '',
+    amount: 0,
+    ratingAverage: 0,
+    ratingAmount: 0,
+    description: '',
+    warrantyPeriod: 0,
+    gender: '',
+    categoryId: '',
+    manufacturerId: '',
   });
-
+  const navigate = useNavigate();
   useEffect(() => {
-    if (toy) {
-      setEditedToy({
-        name: toy.name,
-        description: toy.description,
-        price: parseFloat(toy.price),
-      });
-    }
-  }, [toy]);
+    // Fetch default data for the product
+    axios
+      .get(`https://localhost:7026/api/Product/GetById/${id}`)
+      .then((response) => setEditedToy(response.data))
+      .catch((error) => console.error('Error fetching product:', error));
+  }, [id]);
 
-  const handleAddItem = () => {
-    if (editedToy.name && editedToy.description && editedToy.price > 0) {
-      // Handle saving the updated data here.
+  const handleRemoveItem = async () => {
+    try {
+      // Make a DELETE request to remove the product
+      await axios.delete(
+        `https://localhost:7026/api/Product/DeleteProduct/${id}`,
+      );
+
+      // Handle success, redirect to the list page
+      navigate(`/List`);
+    } catch (error) {
+      console.error('Error removing item:', error);
     }
   };
-
-  if (!toy) {
-    return <div>Toy not found</div>;
-  }
 
   const divStyle = {
     marginBottom: '16px',
-    width: '100%', // Set a specific width for uniformity
+    width: '100%',
   };
   const textFieldStyle = {
-    width: '300px', // Set a specific width of 300 pixels
+    width: '300px',
     marginBottom: '16px',
   };
+
+  if (!editedToy.id) {
+    return <div>Item not found</div>;
+  }
 
   return (
     <Container>
       <Card>
         <CardContent>
-          <Typography variant="h4">Remove Item</Typography>
-          <CardMedia
+          <Typography variant="h4">Remove/Edit Item</Typography>
+          {/*<CardMedia
             component="img"
             height="300"
-            image={toy.imageUrl}
-            alt={toy.name}
-          />
+            image={/* Assuming editedToy has an imageUrl property  editedToy.imageUrl}
+            alt={editedToy.name}
+          /> */}
 
           <div style={divStyle}>
             <TextField
@@ -71,7 +83,7 @@ function RemoveItemPage() {
                 setEditedToy({ ...editedToy, name: e.target.value })
               }
               style={textFieldStyle}
-              disabled // Disable the input field
+              disabled // Disable the input field for editing
             />
           </div>
 
@@ -85,7 +97,7 @@ function RemoveItemPage() {
                 setEditedToy({ ...editedToy, description: e.target.value })
               }
               style={textFieldStyle}
-              disabled // Disable the input field
+              disabled // Disable the input field for editing
             />
           </div>
 
@@ -101,17 +113,23 @@ function RemoveItemPage() {
                 })
               }
               style={textFieldStyle}
-              disabled // Disable the input field
+              disabled // Disable the input field for editing
             />
           </div>
-          <Link to={`/List`}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={handleAddItem}
-            >
-              Remove Item
+
+          {/* Additional fields for editing, similar to the ones in EditProductPage */}
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleRemoveItem}
+            style={{ marginBottom: '12px', width: '300px' }}
+          >
+            Remove Item
+          </Button>
+          <Link to={`/Toys/${id}`}>
+            <Button variant="contained" color="primary" fullWidth>
+              Go Back
             </Button>
           </Link>
         </CardContent>
@@ -120,4 +138,4 @@ function RemoveItemPage() {
   );
 }
 
-export default RemoveItemPage;
+export default RemoveEditItemPage;

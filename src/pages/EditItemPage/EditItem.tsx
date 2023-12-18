@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Container,
   Card,
@@ -7,127 +7,310 @@ import {
   Typography,
   Button,
   TextField,
-  CardMedia,
+  MenuItem,
+  Select,
+  Snackbar,
 } from '@mui/material';
-import { toysData } from '../../toysData';
+import axios from 'axios';
+import { Category, Manufacturer } from '../../Interfaces/Options';
 
-function EditItemPage() {
+function EditProductPage() {
   const { id } = useParams<{ id: string }>();
-  const parsedId = id ?? '-1';
-  const toy = toysData[parseInt(parsedId, 10)];
-
-  const [editedToy, setEditedToy] = useState({
+  const [editedProduct, setEditedProduct] = useState({
     name: '',
     description: '',
     price: 0,
+    creationDate: '',
+    color: '',
+    amount: 0,
+    warrantyPeriod: 0,
+    gender: '',
+    categoryId: '',
+    manufacturerId: '',
   });
 
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
+  const [genders] = useState(['Man', 'Women', 'Unisex']);
+  const [product, setProduct] = useState({
+    id: '',
+    name: '',
+    price: 0,
+    creationDate: '',
+    color: '',
+    amount: 0,
+    ratingAverage: 0,
+    ratingAmount: 0,
+    description: '',
+    warrantyPeriod: 0,
+    gender: '',
+    categoryId: '',
+    manufacturerId: '',
+  });
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
-    if (toy) {
-      setEditedToy({
-        name: toy.name,
-        description: toy.description,
-        price: parseFloat(toy.price),
+    // Fetch categories
+    axios
+      .get('https://localhost:7026/api/Category/GetAll')
+      .then((response) => setCategories(response.data))
+      .catch((error) => console.error('Error fetching categories:', error));
+
+    // Fetch manufacturers
+    axios
+      .get('https://localhost:7026/api/Manufacturer/GetAll')
+      .then((response) => setManufacturers(response.data))
+      .catch((error) => console.error('Error fetching manufacturers:', error));
+
+    // Fetch default data for the product
+    axios
+      .get(`https://localhost:7026/api/Product/GetById/${id}`)
+      .then((response) => setProduct(response.data))
+      .catch((error) => console.error('Error fetching product:', error));
+  }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      setEditedProduct({
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        creationDate: product.creationDate || '',
+        color: product.color || '',
+        amount: product.amount || 0,
+        warrantyPeriod: product.warrantyPeriod || 0,
+        gender: product.gender || '',
+        categoryId: product.categoryId || '',
+        manufacturerId: product.manufacturerId || '',
       });
     }
-  }, [toy]);
+  }, [product]);
 
-  const handleAddItem = () => {
-    if (editedToy.name && editedToy.description && editedToy.price > 0) {
-      // Handle saving the updated data here.
+  const handleEditProduct = async () => {
+    if (
+      !editedProduct.name ||
+      !editedProduct.description ||
+      editedProduct.price <= 0 ||
+      editedProduct.amount <= 0 ||
+      !editedProduct.color ||
+      editedProduct.warrantyPeriod <= 0 ||
+      !editedProduct.gender ||
+      !editedProduct.manufacturerId ||
+      !editedProduct.categoryId
+    ) {
+      setSnackbarMessage('Please fill in all required fields.');
+      setOpenSnackbar(true);
+      return;
+    }
+    try {
+      // Prepare the request payload
+      const updatedProduct = {
+        ...editedProduct,
+        // Add other fields as needed
+      };
+
+      // Make a POST request to edit the product
+      const response = await axios.put(
+        `https://localhost:7026/api/Product/EditProduct/${id}`,
+        updatedProduct,
+      );
+
+      // Handle the response as needed
+      console.log('Product edited:', response.data);
+
+      // Redirect to the details page
+      navigate(`/Toys/${id}`);
+    } catch (error) {
+      setSnackbarMessage('Unable to add item or photos');
+      setOpenSnackbar(true);
+      console.error('Error editing product:', error);
     }
   };
-
-  const handleAddImage = () => {
-    // Implement the logic for adding an image here.
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
   };
-
-  if (!toy) {
-    return <div>Toy not found</div>;
-  }
 
   const divStyle = {
     marginBottom: '16px',
-    width: '100%', // Set a specific width for uniformity
+    width: '100%',
   };
+
   const textFieldStyle = {
-    width: '300px', // Set a specific width of 300 pixels
+    width: '300px',
     marginBottom: '16px',
   };
 
   return (
-    <Container>
-      <Card>
-        <CardContent>
-          <Typography variant="h4">Edit Item</Typography>
-          <CardMedia
-            component="img"
-            height="300"
-            image={toy.imageUrl}
-            alt={toy.name}
-          />
+    <>
+      <Container>
+        <Card>
+          <CardContent>
+            <Typography variant="h4">Edit Product</Typography>
+            <div style={divStyle}>
+              <TextField
+                label="Product Name"
+                value={editedProduct.name}
+                onChange={(e) =>
+                  setEditedProduct({ ...editedProduct, name: e.target.value })
+                }
+                style={textFieldStyle}
+              />
+            </div>
 
-          <div style={divStyle}>
-            <TextField
-              label="Item Name"
-              value={editedToy.name}
-              onChange={(e) =>
-                setEditedToy({ ...editedToy, name: e.target.value })
-              }
-              style={textFieldStyle}
-            />
-          </div>
+            <div style={divStyle}>
+              <TextField
+                label="Product Description"
+                multiline
+                rows={4}
+                value={editedProduct.description}
+                onChange={(e) =>
+                  setEditedProduct({
+                    ...editedProduct,
+                    description: e.target.value,
+                  })
+                }
+                style={textFieldStyle}
+              />
+            </div>
 
-          <div style={divStyle}>
-            <TextField
-              label="Item Description"
-              multiline
-              rows={4}
-              value={editedToy.description}
-              onChange={(e) =>
-                setEditedToy({ ...editedToy, description: e.target.value })
-              }
-              style={textFieldStyle}
-            />
-          </div>
+            <div style={divStyle}>
+              <TextField
+                label="Product Price"
+                type="number"
+                value={editedProduct.price}
+                onChange={(e) =>
+                  setEditedProduct({
+                    ...editedProduct,
+                    price: parseFloat(e.target.value) || 0,
+                  })
+                }
+                style={textFieldStyle}
+              />
+            </div>
 
-          <div style={divStyle}>
-            <TextField
-              label="Item Price"
-              type="number"
-              value={editedToy.price}
-              onChange={(e) =>
-                setEditedToy({
-                  ...editedToy,
-                  price: parseFloat(e.target.value) || 0,
-                })
-              }
-              style={textFieldStyle}
-            />
-          </div>
+            <div style={divStyle}>
+              <TextField
+                label="Product Color"
+                value={editedProduct.color}
+                onChange={(e) =>
+                  setEditedProduct({ ...editedProduct, color: e.target.value })
+                }
+                style={textFieldStyle}
+              />
+            </div>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleAddImage}
-            style={{ marginBottom: '12px', width: '300px' }}
-          >
-            Add Image
-          </Button>
-          <Link to={`/Toys/${toy.id}`}>
+            <div style={divStyle}>
+              <TextField
+                label="Product Amount"
+                type="number"
+                value={editedProduct.amount}
+                onChange={(e) =>
+                  setEditedProduct({
+                    ...editedProduct,
+                    amount: parseInt(e.target.value) || 0,
+                  })
+                }
+                style={textFieldStyle}
+              />
+            </div>
+
+            <div style={divStyle}>
+              <TextField
+                label="Product Warranty Period"
+                type="number"
+                value={editedProduct.warrantyPeriod}
+                onChange={(e) =>
+                  setEditedProduct({
+                    ...editedProduct,
+                    warrantyPeriod: parseInt(e.target.value) || 0,
+                  })
+                }
+                style={textFieldStyle}
+              />
+            </div>
+
+            <div style={divStyle}>
+              <Select
+                label="Product Gender"
+                value={editedProduct.gender}
+                onChange={(e) =>
+                  setEditedProduct({ ...editedProduct, gender: e.target.value })
+                }
+                style={textFieldStyle}
+              >
+                {genders.map((gender) => (
+                  <MenuItem key={gender} value={gender}>
+                    {gender}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+
+            <div style={divStyle}>
+              <Select
+                label="Product Category"
+                value={editedProduct.categoryId}
+                onChange={(e) =>
+                  setEditedProduct({
+                    ...editedProduct,
+                    categoryId: e.target.value,
+                  })
+                }
+                style={textFieldStyle}
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+
+            <div style={divStyle}>
+              <Select
+                label="Product Manufacturer"
+                value={editedProduct.manufacturerId}
+                onChange={(e) =>
+                  setEditedProduct({
+                    ...editedProduct,
+                    manufacturerId: e.target.value,
+                  })
+                }
+                style={textFieldStyle}
+              >
+                {manufacturers.map((manufacturer) => (
+                  <MenuItem key={manufacturer.id} value={manufacturer.id}>
+                    {manufacturer.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+
             <Button
               variant="contained"
               color="primary"
-              fullWidth
-              onClick={handleAddItem}
+              onClick={handleEditProduct}
+              style={{ marginBottom: '12px', width: '300px' }}
             >
-              Edit Item
+              Edit Product
             </Button>
-          </Link>
-        </CardContent>
-      </Card>
-    </Container>
+            <Link to={`/Toys/${id}`}>
+              <Button variant="contained" color="primary" fullWidth>
+                Go Back
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </Container>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+      />
+    </>
   );
 }
 
-export default EditItemPage;
+export default EditProductPage;

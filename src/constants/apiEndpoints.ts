@@ -1,7 +1,7 @@
 export const API_ENDPOINTS_USER = {
   LOGIN: '/User/Login',
   REGISTER: '/User/Register',
-  GET_ME: '/Users/GetMe',
+  GET_ME: '/User/GetMe',
   GET_USER_RECIPES: '/Users/GetAllUserRecipes',
   ADD_LIKED: '/Users/AddLikedRecipe',
   REMOVE_LIKED: '/Users/RemoveLikedRecipe',

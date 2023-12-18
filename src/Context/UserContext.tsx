@@ -8,7 +8,7 @@ type User = {
   Surname: string;
   Email: string;
   PhoneNumber: string;
-  BirthDate: Date;
+  BirthDate: string;
   ReviewCount: number;
   Role: string;
   Gender: string;

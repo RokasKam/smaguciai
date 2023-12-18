@@ -11,4 +11,3 @@ export type Profile = {
   reviewCount: number;
   gender: string;
 };
-  
